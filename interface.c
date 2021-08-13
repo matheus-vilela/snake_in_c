@@ -1,50 +1,90 @@
-#include <time.h>
-#include <stdio.h>
-#include <stdlib.h>
-
-#include "snack.h"
 #include "interface.h"
-#ifdef _WIN32
-#include <Windows.h>
-#else
+#include <string.h>
+#include <stdio.h>  
 #include <unistd.h>
-#endif
+#include <stdio.h>
+#include <sys/ioctl.h> 
+#include <termios.h>
+#include <stdbool.h>
 
-void Imprime_mapa(TSnack *Snack, TComida Comida){
+int kbhit(void) {
+    static bool initflag = false;
+    static const int STDIN = 0;
 
+    if (!initflag) {
+        struct termios term;
+        tcgetattr(STDIN, &term);
+        term.c_lflag &= ~ICANON;
+        tcsetattr(STDIN, TCSANOW, &term);
+        setbuf(stdin, NULL);
+        initflag = true;
+    }
+
+    int nbbytes;
+    ioctl(STDIN, FIONREAD, &nbbytes); 
+    return nbbytes;
+}
+
+void Imprime_mapa(TSnake *Snake, TSnakeBody Comida){
     int existe=0;
     system("clear");
-    for(int x=0; x<20; x++){
-        for(int y=0; y<30; y++){
-            existe = 7;
-            existe = VerificaSeExisteNaSnack(Snack,x,y);
-            if(x==0 || x==19 || y==0 || y==29 ){
-                printf(" \033[1;33m*\033[0;37m");
-            } else if(existe != 7){
-                printf(" \033[1;3%dm*\033[0;37m", existe);
-            } else if(x==Comida.coordenada.x && y==Comida.coordenada.y){
-                printf(" \033[1;36m*\033[0;37m");
+    for(int y=0; y < HEIGHT; y++){
+        for(int x=0; x < WIDTH; x++){
+            existe = VerificaSeExisteNaSnake(Snake,x,y);
+            if(y==0 || y==20 || x==0 || x==40 ){
+                printf("\033[0;45m  \033[0;37m");
+            } else if(existe != 0) {
+                printf("\033[0;3%dm *\033[0;37m", existe);
+            } else if(x==Comida.coordenada.x && y==Comida.coordenada.y) {
+                printf("\033[0;36m *\033[0;37m");
             } else {
                 printf("  ");
             }
         }
         printf("\n");
     }
-
 }
 
-void Andar_snack(TSnack *Snack, int SentidoAtual, TComida Comida){
-    int aux = SentidoAtual;
-    int aux1;
-    int inverso = (aux == 3) ? 1 : (aux == 2) ? 4: (aux ==1) ? 3: (aux == 4)? 2: 4;
-    aux1 = inverso;
+int Menu(){
+    int input,delay=0;
+    int y,x;
+    int opt;
 
-    while(aux1 == inverso){
-        aux1 = rand()%4;
+    system("clear");
+    for(y=0; y < HEIGHT; y++){
+        for(x=0; x < WIDTH; x++){
+            if(y==0 || y==20 || x==0 || x==40 ){
+                printf("\033[0;45m  \033[0;37m");
+            }else if(y == 6){
+                switch(x){
+                    case 18:
+                       printf("\033[0;44m M\033[0;37m");
+                       break;
+                    case 19:
+                       printf("\033[0;44m E\033[0;37m");
+                           break;
+                    case 20:
+                       printf("\033[0;44m N\033[0;37m");
+                           break;
+                    case 21:
+                       printf("\033[0;44m U\033[0;37m");
+                           break;
+                    default:
+                       printf("\033[0;44m  \033[0;37m"); 
+                }
+
+            }else {
+                printf("\033[0;44m  \033[0;37m"); 
+            }
+        }
+        printf("\n");
     }
 
-    sleep(1);
-    andarSnack(Snack, aux1);
-    Imprime_mapa(Snack, Comida);
-    Andar_snack(Snack, aux1, Comida);
+    while (!kbhit()) {
+        fflush(stdout);
+        usleep(100000);
+    }
+ 
+    return getchar();
 }
+
