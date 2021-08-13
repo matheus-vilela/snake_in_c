@@ -3,8 +3,9 @@
 
 #include "snake.h"
 
-void IniciaJogo(TSnake *Snake, TSnakeBody Comida);
-void Mover_Snake(TSnake *Snake, int SentidoAtual, TSnakeBody Comida);
+void IniciaJogo(TSnake *Snake, TSnakeBody *Comida);
+void Mover_Snake(TSnake *Snake, int SentidoAtual, TSnakeBody *Comida);
+void GameOver(int *score, TSnake *Snake);
 
 #endif // GAME_H_INCLUDED
 
