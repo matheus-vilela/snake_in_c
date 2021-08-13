@@ -28,7 +28,6 @@ void LiberarFila(TSnake *Snake);
 void Desenfileirar(TSnake *Snake, TSnakeBody *Comida);
 void Enfileirar(TSnake *Snake,TSnakeBody Comida);
 TSnakeBody CreateBody(int valor, int x, int y);
-
 int VerificaSeExisteNaSnake(TSnake *Snake, int x, int y);
 void MoverSnake(TSnake *Snake, int Sentido);
 void CriarCabeca(TSnake *Snake);

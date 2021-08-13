@@ -38,17 +38,17 @@ void IniciaSnake(TSnake *Snake) {
 void CriarCabeca(TSnake *Snake) {
     TSnakeBody headerSnake;
     for(int i=0; i<4;i++){
-        headerSnake = CreateBody(1,15,15-i);
+        headerSnake = CreateBody(1+(rand()%6),15,15-i);
         Enfileirar(Snake, headerSnake);
     }
 }
 
-TSnakeBody CreateBody(int value, int x, int y) {
-    TSnakeBody newFood;
-    newFood.coordenada.x = x;
-    newFood.coordenada.y = y;
-    newFood.cor = value;
-    return newFood;
+TSnakeBody CreateBody(int cor, int x, int y) {
+    TSnakeBody body;
+    body.coordenada.x = x;
+    body.coordenada.y = y;
+    body.cor = cor;
+    return body;
 }
 
 void LiberarSnake(TSnake *Snake){
