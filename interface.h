@@ -5,9 +5,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
+#include <sys/ioctl.h> 
+#include <termios.h>
+#include <stdbool.h>
 
+#include "game.h"
 #include "snake.h"
-#include "interface.h"
 
 #define WIDTH 41
 #define HEIGHT 21
@@ -16,14 +20,6 @@
 #define NORMAL 2
 #define RAPIDO 3
 #define ULTRA 4
-
-#define FALSE 0
-#define TRUE 1
-
-// #define VERMELHO     "\x1b[31m"
-// #define VERDE   "\x1b[32m"
-// #define AZUL    "\x1b[34m"
-// #define RESET   "\x1b[0m"
 
 // Foreground:
 
@@ -50,7 +46,9 @@
 // 0 Reset all
 // 1 Bold
 
-void Imprime_mapa(TSnake *Snake, TSnakeBody Comida);
+void Imprime_mapa(TSnake *Snake, TSnakeBody *Comida, int *Score, int *GameOver);
+void Sub_Menu(int *Score);
+void TxtPlacar(int x, int y, int *Score);
 int Menu();
 int kbhit(void);
 
