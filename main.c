@@ -16,8 +16,7 @@ int main(){
     TSnake Snake;
     IniciaSnake(&Snake);
     CriarCabeca(&Snake);
-
-    TSnakeBody Comida = CreateBody(6,16,3);
+    TSnakeBody Comida = CreateBody(1+rand()%6,1+rand()%39,1+rand()%19);
 
     // pthread_create(&s_thread, NULL, Imprime_mapa(&Snake, Comida), NULL);
     // pthread_create(&i_thread, NULL, Mover_Snake(&Snake, 1, Comida), NULL);
@@ -30,26 +29,18 @@ int main(){
     int start_game;
     int velocidade = NORMAL;
 
-    start_game = FALSE;
-    IniciaJogo(&Snake, Comida);
 
-    // opcao = Menu(start_game);
-    // usleep(50000);
- 
+    opcao = Menu(start_game);
 
     while(opcao == 1){
           switch(opcao){
-            case 1:  IniciaJogo(&Snake, Comida); 
+            case 1:  IniciaJogo(&Snake, &Comida); 
             break;
-            // case 2: dificuldade(); 
-            // break;
-            // case 3: recordes(); 
-            // break;
-            // case 4: ajuda(); 
-            // break;
-            // case 5: sair(); 
-            // break;
-            //  default: 
+            case 2: ; 
+            break;
+            case 3: ; 
+            break;
+
         }
     }
 }
