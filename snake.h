@@ -24,7 +24,7 @@ typedef struct snake {
 
 int Vazia(TSnake Snake);
 void IniciaSnake(TSnake *Snake);
-void LiberarFila(TSnake *Snake);
+void LiberarSnake(TSnake *Snake);
 void Desenfileirar(TSnake *Snake, TSnakeBody *Comida);
 void Enfileirar(TSnake *Snake,TSnakeBody Comida);
 TSnakeBody CreateBody(int valor, int x, int y);

@@ -12,31 +12,20 @@
 #include "game.h"
 
 int main(){
-    // pthread_t s_thread, i_thread;
-  
-
-    // pthread_create(&s_thread, NULL, Imprime_mapa(&Snake, Comida), NULL);
-    // pthread_create(&i_thread, NULL, Mover_Snake(&Snake, 1, Comida), NULL);
-
-    // pthread_join(i_thread, NULL);
-    // pthread_join(s_thread, NULL);
-
-    srand(time(NULL));
     int opcao =0;
     int velocidade = NORMAL;
 
-
    do {
         opcao = Menu();
-
         switch(opcao){
             case 1: IniciaJogo(); 
             break;
-            case 2: ; 
+            case 2: Creditos(); 
             break;
-            case 3: ; 
+            case 3: exit(1); 
             break;
-
         }
-    } while(opcao != 3);
+
+    } while(1);
+
 }

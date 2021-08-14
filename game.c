@@ -17,7 +17,6 @@ void GameOver(int *score, TSnake *Snake){
     int y,x;
     int opt;
     int existe =0;
-    do{
 
     system("clear");
     for(y=0; y < HEIGHT; y++){
@@ -102,22 +101,21 @@ void GameOver(int *score, TSnake *Snake){
     }
 
     Sub_Menu(score, 2);
-    usleep(100000);
-    }while(1);
-    // exit(1);
+
 }
 
 void IniciaJogo(){
-    int opcao =0;
+    int opcao = 0, exit = 0;
     int sentidoOld = 119;
     int sentidoAtual = 119;
     int sentido;
     int score = 0;
     int gameOver= 0;
     TSnake Snake;
-        IniciaSnake(&Snake);
-        CriarCabeca(&Snake);
-        TSnakeBody Comida = CreateBody(1+rand()%6,1+rand()%39,1+rand()%19);
+    IniciaSnake(&Snake);
+    CriarCabeca(&Snake);
+    TSnakeBody Comida = CreateBody(1+rand()%6,1+rand()%39,1+rand()%19);
+
     int *pontGameOver;
     pontGameOver = &gameOver; 
     int *pontScore;
@@ -126,7 +124,7 @@ void IniciaJogo(){
     do{
         if(kbhit()){
             sentido = getchar() ;
-            if(sentido == 112 ){
+            if(sentido == 112 &&gameOver == 0){
                 if(sentidoAtual == 112){
                 sentidoAtual = sentidoOld;
                 } else {
@@ -143,38 +141,37 @@ void IniciaJogo(){
                 if (sentido == 'w' || sentido == 'a'|| sentido == 's' || sentido == 'd'){
                     sentidoAtual = sentido;
                 }
-
-                while (kbhit() != 0)
-                    getchar();
-
                 fflush(stdout);
             }
+                while (kbhit() != 0)
+                    getchar();
         } else {
             fflush(stdout);
         }
 
-        if(sentidoAtual != 112){
+        if(sentidoAtual != 112 && gameOver == 0){
             MoverSnake(&Snake, sentidoAtual);
         }
         
         usleep(100000);
 
-        if(sentidoAtual != 112){
+        if(sentidoAtual != 112 && gameOver == 0){
             Imprime_mapa(&Snake, &Comida, pontScore, pontGameOver, sentidoAtual);
         }
+
     } while(gameOver == 0);
-
+    
     GameOver(pontScore, &Snake);
-    do{
-
-        if(kbhit()){
-            opcao = getchar() ;
-            fflush(stdout);
-            usleep(100000);
-        }
-    }while(opcao != 0);
-        if(opcao == 119){
-            IniciaJogo();
-        }
-
+    while(!kbhit()){
+        fflush(stdout);
+        usleep(100000);
+    }
+    sentido = getchar();
+    if(sentido == 49){
+        LiberarSnake(&Snake);
+        IniciaJogo();
+    }
+    else if(sentido == 50) {
+        exit = 1;
+    }
 }

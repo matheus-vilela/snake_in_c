@@ -175,7 +175,7 @@ int Menu(){
         for(x=0; x < WIDTH; x++){
             if(y==0 || y==20 || x==0 || x==40 ){
                 printf("\033[0;45m  \033[0;37m");
-            }else if(y == 6){
+            } else if(y == 6){
                 switch(x){
                     case 18:
                         printf("\033[0;40m M E N U\033[0;37m");
@@ -293,8 +293,90 @@ int Menu(){
          opt =opt-2;
         } 
     } 
-    }while(input != '\n');
+    }while(input != 10);
 
     return opt = (opt == 12) ? 1 : (opt == 14) ? 2: (opt == 16) ? 3 : 1;
 }
 
+void Creditos(){
+    int x, y, input = 0;
+    system("clear");
+        for(y=0; y < HEIGHT; y++){
+            for(x=0; x < WIDTH; x++){
+                if(y==0 || y==20 || x==0 || x==40 ){
+                    printf("\033[0;45m  \033[0;37m");
+                } else if(y== 5){
+                    switch(x){
+                        case 15:
+                            printf("\033[0;40m C R E D I T O S\033[0;37m");
+                            break;
+                        case 16 ... 22:
+                            break;
+                        default:
+                            printf("\033[0;40m  \033[0;37m"); 
+                    }
+                } else if(y== 10){
+                    switch(x){
+                        case 15:
+                            printf("\033[0;40m Arthur Enrique \033[0;37m");
+                            break;
+                        case 16 ... 22:
+                            break;
+                        default:
+                            printf("\033[0;40m  \033[0;37m"); 
+                    }
+                } else if(y== 11){
+                    switch(x){
+                        case 15:
+                            printf("\033[0;40mGabriel Geovanni\033[0;37m");
+                            break;
+                        case 16 ... 22:
+                            break;
+                        default:
+                            printf("\033[0;40m  \033[0;37m"); 
+                    }
+                } else if(y== 12){
+                    switch(x){
+                        case 16:
+                            printf("\033[0;40mGustavo Sena\033[0;37m");
+                            break;
+                        case 17 ... 21:
+                            break;
+                        default:
+                            printf("\033[0;40m  \033[0;37m"); 
+                    }
+                } else if(y== 13){
+                    switch(x){
+                        case 15:
+                            printf("\033[0;40m Matheus Vilela \033[0;37m");
+                            break;
+                        case 16 ... 22:
+                            break;
+                        default:
+                            printf("\033[0;40m  \033[0;37m"); 
+                    }
+                } else if(y== 14){
+                    switch(x){
+                        case 16:
+                            printf("\033[0;40mYuri Ribeiro\033[0;37m");
+                            break;
+                        case 17 ... 21:
+                            break;
+                        default:
+                            printf("\033[0;40m  \033[0;37m"); 
+                    }
+                } else {
+                        printf("\033[0;40m  \033[0;37m"); 
+                }
+            }
+            printf("\n");
+        }
+        
+        while (!kbhit()) {
+            fflush(stdout);
+            usleep(100000);
+        }
+
+   
+
+}

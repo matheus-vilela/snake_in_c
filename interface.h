@@ -21,35 +21,12 @@
 #define RAPIDO 3
 #define ULTRA 4
 
-// Foreground:
-
-// 30 Black
-// 31 Red
-// 32 Green
-// 33 Yellow
-// 34 Blue
-// 35 Magenta
-// 36 Cyan
-// 37 White
-
-// Background:
-
-// 40 Black
-// 41 Red
-// 42 Green
-// 43 Yellow
-// 44 Blue
-// 45 Magenta
-// 46 Cyan
-// 47 White
-
-// 0 Reset all
-// 1 Bold
-
 void Imprime_mapa(TSnake *Snake, TSnakeBody *Comida, int *Score, int *GameOver, int SentidoAtual);
 void Sub_Menu(int *Score, int opcao);
 void TxtPlacar(int x, int y, int *Score);
+void TxtContinue(int x, int y);
 int Menu();
 int kbhit(void);
+void Creditos();
 
 #endif // INTERFACE_H_INCLUDED
