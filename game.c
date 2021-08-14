@@ -17,6 +17,8 @@ void GameOver(int *score, TSnake *Snake){
     int y,x;
     int opt;
     int existe =0;
+    do{
+
     system("clear");
     for(y=0; y < HEIGHT; y++){
         for(x=0; x < WIDTH; x++){
@@ -98,64 +100,81 @@ void GameOver(int *score, TSnake *Snake){
         }
         printf("\n");
     }
-    exit(1);
+
+    Sub_Menu(score, 2);
+    usleep(100000);
+    }while(1);
+    // exit(1);
 }
 
-void IniciaJogo(TSnake *Snake, TSnakeBody *Comida){
-  int opcao =0;
-  int sentidoOld = 119;
-  int sentidoAtual = 119;
-  int sentido;
-  int score = 0;
-  int gameOver= 0;
+void IniciaJogo(){
+    int opcao =0;
+    int sentidoOld = 119;
+    int sentidoAtual = 119;
+    int sentido;
+    int score = 0;
+    int gameOver= 0;
+    TSnake Snake;
+        IniciaSnake(&Snake);
+        CriarCabeca(&Snake);
+        TSnakeBody Comida = CreateBody(1+rand()%6,1+rand()%39,1+rand()%19);
+    int *pontGameOver;
+    pontGameOver = &gameOver; 
+    int *pontScore;
+    pontScore = &score; 
 
-  int *pontGameOver;
-  pontGameOver = &gameOver; 
-  int *pontScore;
-  pontScore = &score; 
+    do{
+        if(kbhit()){
+            sentido = getchar() ;
+            if(sentido == 112 ){
+                if(sentidoAtual == 112){
+                sentidoAtual = sentidoOld;
+                } else {
+                sentidoOld = sentidoAtual;
+                sentidoAtual = sentido;
+                }
+            } 
+            else if (
+                (sentido == 'w' && sentidoAtual != 's') ||
+                (sentido == 's' && sentidoAtual != 'w') ||
+                (sentido == 'a' && sentidoAtual != 'd') ||
+                (sentido == 'd' && sentidoAtual != 'a')
+                ) {
+                if (sentido == 'w' || sentido == 'a'|| sentido == 's' || sentido == 'd'){
+                    sentidoAtual = sentido;
+                }
 
-  do{
-    if(kbhit()){
-      sentido = getchar() ;
-      if(sentido == 112 ){
-        if(sentidoAtual == 112){
-          sentidoAtual = sentidoOld;
+                while (kbhit() != 0)
+                    getchar();
+
+                fflush(stdout);
+            }
         } else {
-          sentidoOld = sentidoAtual;
-          sentidoAtual = sentido;
-        }
-      } 
-      else if (
-        (sentido == 'w' && sentidoAtual != 's') ||
-        (sentido == 's' && sentidoAtual != 'w') ||
-        (sentido == 'a' && sentidoAtual != 'd') ||
-        (sentido == 'd' && sentidoAtual != 'a')
-        ) {
-        if (sentido == 'w' || sentido == 'a'|| sentido == 's' || sentido == 'd'){
-            sentidoAtual = sentido;
-            //MOVER
+            fflush(stdout);
         }
 
-        while (kbhit() != 0)
-            getchar();
+        if(sentidoAtual != 112){
+            MoverSnake(&Snake, sentidoAtual);
+        }
+        
+        usleep(100000);
 
-        fflush(stdout);
-      }
-    } else {
-      fflush(stdout);
-    }
+        if(sentidoAtual != 112){
+            Imprime_mapa(&Snake, &Comida, pontScore, pontGameOver, sentidoAtual);
+        }
+    } while(gameOver == 0);
 
-    if(sentidoAtual != 112){
-      MoverSnake(Snake, sentidoAtual);
-    }
-    
-    usleep(100000);
+    GameOver(pontScore, &Snake);
+    do{
 
-    if(sentidoAtual != 112){
-      Imprime_mapa(Snake, Comida, pontScore, pontGameOver);
-      // Imprime_placar(pontScore);
-    }
-  } while(gameOver == 0);
+        if(kbhit()){
+            opcao = getchar() ;
+            fflush(stdout);
+            usleep(100000);
+        }
+    }while(opcao != 0);
+        if(opcao == 119){
+            IniciaJogo();
+        }
 
-  GameOver(pontScore, Snake);
 }

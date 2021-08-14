@@ -46,8 +46,8 @@
 // 0 Reset all
 // 1 Bold
 
-void Imprime_mapa(TSnake *Snake, TSnakeBody *Comida, int *Score, int *GameOver);
-void Sub_Menu(int *Score);
+void Imprime_mapa(TSnake *Snake, TSnakeBody *Comida, int *Score, int *GameOver, int SentidoAtual);
+void Sub_Menu(int *Score, int opcao);
 void TxtPlacar(int x, int y, int *Score);
 int Menu();
 int kbhit(void);

@@ -76,21 +76,53 @@ void TxtPlacar(int x, int y, int *Score){
             }
 }
 
+void TxtContinue(int x, int y){
+         if(x== 0 || x== 40 ||y==0 || y==6){
+                 printf("\033[0;47m  \033[0;37m");
+            } else if( y== 2){
+                switch(x){
+                    case 15:
+                        printf("\033[0;37m JOGAR NOVAMENTE ?\033[0;37m");
+                        break;
+                    case 16 ... 23:
+                            break;
+                    default:
+                        printf("\033[0;35m  \033[0;37m"); 
+                }
+            } else if( y== 4){
+                switch(x){
+                    case 11:
+                        printf("\033[0;37mSim Digite: <1>    Não Digite: <2>\033[0;37m");
+                        break;
+                    case 12 ... 27:
+                            break;
+                    default:
+                        printf("\033[0;35m  \033[0;37m"); 
+                }
+            } else {
+                  printf("\033[0;35m  \033[0;37m"); 
+            }
+}
 
-void Sub_Menu(int *score){
+void Sub_Menu(int *score, int opcao){
     for(int y=0; y < 7; y++){
         for(int x=0; x < WIDTH; x++){
+            if(opcao == 1){
+
             TxtPlacar(x,y,score);
+            }else {
+                TxtContinue(x,y);
+            }
         }
         printf("\n");
     }
 }
 
-void Imprime_mapa(TSnake *Snake, TSnakeBody *Comida, int *score, int *gameOver){
+void Imprime_mapa(TSnake *Snake, TSnakeBody *Comida, int *score, int *gameOver, int SentidoAtual){
     int existe=0;
     int addComida = 0;
     TSnakeBody cabeca;
-    
+
     system("clear");
     for(int y=0; y < HEIGHT; y++){
         for(int x=0; x < WIDTH; x++){
@@ -101,11 +133,19 @@ void Imprime_mapa(TSnake *Snake, TSnakeBody *Comida, int *score, int *gameOver){
             } if(y==0 || y==20 || x==0 || x==40 ){
                 printf("\033[0;45m  \033[0;37m");
             } else if(existe != 0) {
-                printf("\033[0;3%dm *\033[0;37m", existe);
+                if(existe > 10){
+                    *gameOver = 1;
+                    printf("\033[0;3%dm *\033[0;37m", existe-10);
+                } else {
+                    printf("\033[0;3%dm *\033[0;37m", existe);
+                }
                 if(x==Comida->coordenada.x && y==Comida->coordenada.y && addComida == 0){
                     *score = *score +1;
                     if(existe == Comida->cor){
-                        Desenfileirar(Snake, &cabeca);
+                        if(Snake->tamanho >= 4){
+                            MoverSnake(Snake, SentidoAtual);
+                            Desenfileirar(Snake, &cabeca);
+                        }
                     } else{
                         Enfileirar(Snake, *Comida);
                     }
@@ -122,7 +162,7 @@ void Imprime_mapa(TSnake *Snake, TSnakeBody *Comida, int *score, int *gameOver){
         }
         printf("\n");
     }
-    Sub_Menu(score);
+    Sub_Menu(score, 1);
 }
 
 int Menu(){

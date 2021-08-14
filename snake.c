@@ -35,20 +35,21 @@ void IniciaSnake(TSnake *Snake) {
     Snake->tamanho = 0;
 }
 
-void CriarCabeca(TSnake *Snake) {
-    TSnakeBody headerSnake;
-    for(int i=0; i<4;i++){
-        headerSnake = CreateBody(1+(rand()%6),15,15-i);
-        Enfileirar(Snake, headerSnake);
-    }
-}
-
 TSnakeBody CreateBody(int cor, int x, int y) {
     TSnakeBody body;
     body.coordenada.x = x;
     body.coordenada.y = y;
     body.cor = cor;
     return body;
+}
+
+void CriarCabeca(TSnake *Snake) {
+    TSnakeBody headerSnake;
+    srand(time(NULL));
+    for(int i=0; i<4;i++){
+        headerSnake = CreateBody(1+(rand()%5),15,15+i);
+        Enfileirar(Snake, headerSnake);
+    }
 }
 
 void LiberarSnake(TSnake *Snake){
@@ -65,10 +66,12 @@ int VerificaSeExisteNaSnake(TSnake *Snake, int x, int y){
     IniciaSnake(&saux1);
 
     int existe = 0;
+    int quantidade = 0;
     while(!Vazia(*Snake)){
         Desenfileirar(Snake, &aux1);
         if(aux1.coordenada.x == x && aux1.coordenada.y == y){
             existe = aux1.cor;
+            quantidade ++;
         }
         Enfileirar(&saux1, aux1);
     }
@@ -78,6 +81,9 @@ int VerificaSeExisteNaSnake(TSnake *Snake, int x, int y){
     }
 
     LiberarSnake(&saux1);
+    if(quantidade > 1){
+        existe = 10+existe;
+    }
     return existe;
 }
 
