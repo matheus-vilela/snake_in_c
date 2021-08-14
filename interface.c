@@ -28,7 +28,7 @@ int kbhit(void) {
 }
 
 void TxtPlacar(int x, int y, int *Score){
-         if(x== 0 || x== 40 ||y==0 || y==5){
+         if(x== 0 || x== 40 ||y==0 || y==6){
                  printf("\033[0;47m  \033[0;37m");
             } else if( y== 2){
                 switch(x){
@@ -78,7 +78,7 @@ void TxtPlacar(int x, int y, int *Score){
 
 
 void Sub_Menu(int *score){
-    for(int y=0; y < 6; y++){
+    for(int y=0; y < 7; y++){
         for(int x=0; x < WIDTH; x++){
             TxtPlacar(x,y,score);
         }
@@ -90,7 +90,7 @@ void Imprime_mapa(TSnake *Snake, TSnakeBody *Comida, int *score, int *gameOver){
     int existe=0;
     int addComida = 0;
     TSnakeBody cabeca;
-    srand(time(NULL));
+    
     system("clear");
     for(int y=0; y < HEIGHT; y++){
         for(int x=0; x < WIDTH; x++){

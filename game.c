@@ -105,7 +105,7 @@ void IniciaJogo(TSnake *Snake, TSnakeBody *Comida){
   int opcao =0;
   int sentidoOld = 119;
   int sentidoAtual = 119;
-  int sentido, inverso;
+  int sentido;
   int score = 0;
   int gameOver= 0;
 
@@ -115,21 +115,6 @@ void IniciaJogo(TSnake *Snake, TSnakeBody *Comida){
   pontScore = &score; 
 
   do{
-    switch(sentidoAtual){
-      case 119:        //w
-        inverso= 115;  //s
-        break;
-      case 97:         //a
-        inverso=100;   //d
-        break;
-      case 115:        //s 
-        inverso=119;   //w
-        break;
-      case 100:        //d
-        inverso=97;    //a
-        break;
-    }
-
     if(kbhit()){
       sentido = getchar() ;
       if(sentido == 112 ){
@@ -139,20 +124,28 @@ void IniciaJogo(TSnake *Snake, TSnakeBody *Comida){
           sentidoOld = sentidoAtual;
           sentidoAtual = sentido;
         }
-      } else if ((
-        sentido == 119 ||
-        sentido == 115 || 
-        sentido == 97 || 
-        sentido == 100) 
-        && sentido != inverso && sentidoAtual !=112){
-        MoverSnake(Snake, sentidoAtual);
-        sentidoAtual = sentido;
       } 
-      fflush(stdout);
-    } else if(sentidoAtual == 112 ) {
-      fflush(stdout);
+      else if (
+        (sentido == 'w' && sentidoAtual != 's') ||
+        (sentido == 's' && sentidoAtual != 'w') ||
+        (sentido == 'a' && sentidoAtual != 'd') ||
+        (sentido == 'd' && sentidoAtual != 'a')
+        ) {
+        if (sentido == 'w' || sentido == 'a'|| sentido == 's' || sentido == 'd'){
+            sentidoAtual = sentido;
+            //MOVER
+        }
+
+        while (kbhit() != 0)
+            getchar();
+
+        fflush(stdout);
+      }
     } else {
       fflush(stdout);
+    }
+
+    if(sentidoAtual != 112){
       MoverSnake(Snake, sentidoAtual);
     }
     

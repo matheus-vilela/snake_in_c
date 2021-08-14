@@ -30,11 +30,11 @@ int main(){
     int velocidade = NORMAL;
 
 
-    opcao = Menu(start_game);
+   do {
+        opcao = Menu(start_game);
 
-    while(opcao == 1){
-          switch(opcao){
-            case 1:  IniciaJogo(&Snake, &Comida); 
+        switch(opcao){
+            case 1: IniciaJogo(&Snake, &Comida); 
             break;
             case 2: ; 
             break;
@@ -42,5 +42,5 @@ int main(){
             break;
 
         }
-    }
+    } while(opcao != 3);
 }
