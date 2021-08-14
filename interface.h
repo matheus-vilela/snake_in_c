@@ -25,6 +25,8 @@ void Imprime_mapa(TSnake *Snake, TSnakeBody *Comida, int *Score, int *GameOver, 
 void Sub_Menu(int *Score, int opcao);
 void TxtPlacar(int x, int y, int *Score);
 void TxtContinue(int x, int y);
+void TxtMenu(int x, int y);
+void TxtCreditos(int x, int y);
 int Menu();
 int kbhit(void);
 void Creditos();

@@ -107,7 +107,9 @@ void TxtContinue(int x, int y){
 void Sub_Menu(int *score, int opcao){
     for(int y=0; y < 7; y++){
         for(int x=0; x < WIDTH; x++){
-            if(opcao == 1){
+            if(opcao ==3 ){
+                TxtMenu(x,y);
+            } else if(opcao == 1){
 
             TxtPlacar(x,y,score);
             }else {
@@ -277,7 +279,12 @@ int Menu(){
         }
         printf("\n");
     }
-
+    for(int y=0; y < 7; y++){
+        for(int x=0; x < WIDTH; x++){
+                TxtMenu(x,y);
+        }
+        printf("\n");
+        }
     while (!kbhit()) {
         fflush(stdout);
         usleep(100000);
@@ -371,12 +378,99 @@ void Creditos(){
             }
             printf("\n");
         }
-        
-        while (!kbhit()) {
-            fflush(stdout);
-            usleep(100000);
+        for(int y=0; y < 7; y++){
+        for(int x=0; x < WIDTH; x++){
+                TxtCreditos(x,y);
         }
-
+        printf("\n");
+        }
+            int op2 = 0;
+        do{
+            op2 = 32;
+            while (!kbhit()) {
+                fflush(stdout);
+                usleep(100000);
+            }
+            op2 = getchar();
+            fflush(stdout);
+            
+        } while(op2 != 32);
    
 
+}
+
+
+void TxtMenu(int x, int y){
+         if(x== 0 || x== 40 ||y==0 || y==6){
+                 printf("\033[0;47m  \033[0;37m");
+            } else if( y== 2){
+                switch(x){
+                    case 15:
+                        printf("\033[0;37m  COMANDOS  \033[0;37m");
+                        break;
+                    case 16 ... 20:
+                            break;
+                    default:
+                        printf("\033[0;35m  \033[0;37m"); 
+                }
+            } else if( y== 4){
+                switch(x){
+                    case 4:
+                        printf("\033[0;37mTeclas: \033[0;37m");
+                        break;
+                    case 5 ... 9:
+                            break;
+                    case 11:
+                        printf("\033[0;37m<W>,<S>\033[0;37m");
+                            break;
+                    case 12 ... 14:
+                        printf("\033[0;37m\033[0;37m");
+                            break;
+                    case 28:
+                        printf("\033[0;37m Selecionar:\033[0;37m");
+                            break;
+                    case 29 ... 33:
+                            break;
+                    case 34:
+                        printf("\033[0;37m<ENTER>\033[0;37m");
+                            break;
+                    default:
+                        printf("\033[0;35m  \033[0;37m"); 
+                }
+            } else {
+                  printf("\033[0;35m  \033[0;37m"); 
+            }
+}
+
+void TxtCreditos(int x, int y){
+         if(x== 0 || x== 40 ||y==0 || y==6){
+                 printf("\033[0;47m  \033[0;37m");
+            } else if( y== 2){
+                switch(x){
+                    case 15:
+                        printf("\033[0;37m  COMANDOS  \033[0;37m");
+                        break;
+                    case 16 ... 20:
+                            break;
+                    default:
+                        printf("\033[0;35m  \033[0;37m"); 
+                }
+            } else if( y== 4){
+                switch(x){
+                    case 14:
+                        printf("\033[0;37m Voltar:\033[0;37m");
+                            break;
+
+                    case 15:
+                        printf("\033[0;37m <ESPAÇO> \033[0;37m");
+                            break;
+                    case 16 ... 22:
+                    break;
+
+                    default:
+                        printf("\033[0;35m  \033[0;37m"); 
+                }
+            } else {
+                  printf("\033[0;35m  \033[0;37m"); 
+            }
 }
