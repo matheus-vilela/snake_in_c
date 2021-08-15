@@ -29,5 +29,6 @@ void Desenfileirar(TSnake *Snake, TSnakeBody *Comida);
 void Enfileirar(TSnake *Snake,TSnakeBody Comida);
 TSnakeBody CreateBody(int valor, int x, int y);
 void CriarCabeca(TSnake *Snake);
+int VerificaSeExisteNaSnake(TSnake *Snake, int x, int y);
 
 #endif 

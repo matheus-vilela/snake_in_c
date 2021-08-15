@@ -60,3 +60,31 @@ void LiberarSnake(TSnake *Snake){
     free(Snake->frente);
 }
 
+int VerificaSeExisteNaSnake(TSnake *Snake, int x, int y){
+    TSnake saux1;
+    TSnakeBody aux1;
+    IniciaSnake(&saux1);
+
+    int existe = 0;
+    int quantidade = 0;
+    while(!Vazia(*Snake)){
+        Desenfileirar(Snake, &aux1);
+        if(aux1.coordenada.x == x && aux1.coordenada.y == y){
+            existe = aux1.cor;
+            quantidade ++;
+        }
+        Enfileirar(&saux1, aux1);
+    }
+    while(!Vazia(saux1)){
+        Desenfileirar(&saux1, &aux1);
+        Enfileirar(Snake, aux1);
+    }
+
+    LiberarSnake(&saux1);
+    if(quantidade > 1){
+        existe = 10+existe;
+    }
+    return existe;
+}
+
+
