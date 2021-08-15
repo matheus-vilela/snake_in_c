@@ -1,5 +1,5 @@
-#ifndef SNAKe_H_INCLUDED
-#define SNAKe_H_INCLUDED
+#ifndef SNAKE_H_INCLUDED
+#define SNAKE_H_INCLUDED
 
 typedef struct coordenada {
     int x;
@@ -28,8 +28,6 @@ void LiberarSnake(TSnake *Snake);
 void Desenfileirar(TSnake *Snake, TSnakeBody *Comida);
 void Enfileirar(TSnake *Snake,TSnakeBody Comida);
 TSnakeBody CreateBody(int valor, int x, int y);
-int VerificaSeExisteNaSnake(TSnake *Snake, int x, int y);
-void MoverSnake(TSnake *Snake, int Sentido);
 void CriarCabeca(TSnake *Snake);
 
-#endif // SNAKe_H_INCLUDED
+#endif 

@@ -5,30 +5,26 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <string.h>
-#include <sys/ioctl.h> 
+#include <ncurses.h>
 #include <termios.h>
-#include <stdbool.h>
+#include <sys/ioctl.h> 
 
 #include "game.h"
 #include "snake.h"
 
-#define WIDTH 41
-#define HEIGHT 21
+#define LARGURA 41
+#define ALTURA 21
 
-#define LENTO 1
-#define NORMAL 2
-#define RAPIDO 3
-#define ULTRA 4
+int kbhit(void);
 
+int Menu();
+void Creditos();
 void Imprime_mapa(TSnake *Snake, TSnakeBody *Comida, int *Score, int *GameOver, int SentidoAtual);
+void GameOver(int *score, TSnake *Snake);
 void Sub_Menu(int *Score, int opcao);
 void TxtPlacar(int x, int y, int *Score);
 void TxtContinue(int x, int y);
 void TxtMenu(int x, int y);
 void TxtCreditos(int x, int y);
-int Menu();
-int kbhit(void);
-void Creditos();
 
-#endif // INTERFACE_H_INCLUDED
+#endif
