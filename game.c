@@ -162,16 +162,16 @@ void IniciaJogo(){
     } while(gameOver == 0);
     
     GameOver(pontScore, &Snake);
-    while(!kbhit()){
-        fflush(stdout);
-        usleep(100000);
-    }
-    sentido = getchar();
-    if(sentido == 49){
-        LiberarSnake(&Snake);
-        IniciaJogo();
-    }
-    else if(sentido == 50) {
-        exit = 1;
-    }
+    do{
+        while(!kbhit()){
+            fflush(stdout);
+            usleep(100000);
+        }
+
+        sentido = getchar();
+        if(sentido == 49){
+            LiberarSnake(&Snake);
+            IniciaJogo();
+        }
+    }while(sentido != 49 && sentido != 50);
 }
